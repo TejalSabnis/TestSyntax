@@ -27,6 +27,6 @@ for subdir, dirs, files in os.walk(inputdir):
 
         f = open(fname,"w")
         for line in lines:
-            print(line)
+            print(line);
             f.write(line)
         f.close()
