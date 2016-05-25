@@ -5,11 +5,12 @@ import csv
 import os
 import win32com.client as win32
 
-rootdir = 'C:\\Users\\Tejal\\Documents\\NACC\\UDS2Migration\\UDS2FormsA1A2'
+rootdir = 'C:\\Users\\Tejal\\Documents\\NACC\\UDS2Migration\\input'
 
 outputdir = 'C:\\Users\\Tejal\\Documents\\NACC\\UDS2Migration\\output1'
 
 f = open(outputdir+'\\script\\'+"script.txt","w")
+f2 = open(outputdir+'\\script\\'+"drop_table_script.txt","w")
 
 scriptString = "mysqlimport --local --delete --fields-terminated-by=, --lines-terminated-by='\\n' --fields-optionally-enclosed-by='\"' --ignore-lines=1 -p -u root uds_test "
 
@@ -32,9 +33,10 @@ for subdir, dirs, files in os.walk(rootdir):
         wr = csv.writer(your_csv_file, quoting=csv.QUOTE_NONNUMERIC)
 
         for rownum in xrange(sh.nrows):
-            # print(sh.row_values(rownum))
+            print(sh.row_values(rownum))
             wr.writerow(sh.row_values(rownum))
 
         your_csv_file.close()
 
         f.write(scriptString+sh.cell(1,1).value.lower()+'_uds_v2.csv'+'\n\n')
+        f2.write("DROP TABLE IF EXISTS '"+sh.cell(1,1).value.lower()+"_uds_v2';\n")

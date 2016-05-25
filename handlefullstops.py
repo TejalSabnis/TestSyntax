@@ -20,10 +20,19 @@ for subdir, dirs, files in os.walk(inputdir):
             else:
                 line = re.sub('\.0,', ',', line)
                 line = re.sub('\.0\\n', '\\n', line)
-                # line = re.sub('"\."', '', line) #when you want field to be blank instead of 0
-                line = re.sub('"\."', '0', line)
-                # print(line)
-                lines.append(line)
+                line = re.sub('"\."', '', line) #when you want field to be blank instead of 0
+                # line = re.sub('"\."', '0', line)
+                words = line.split(",")
+                # print(words)
+                allblanks = True
+                for word in words:
+                    if word != '\"\"' and word != '\"\"\n':
+                        allblanks = False
+                        break
+                    else:
+                        print(word)
+                if allblanks == False:
+                    lines.append(line)
         f.close()
 
         f = open(fname,"w")
