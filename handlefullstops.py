@@ -20,13 +20,13 @@ for subdir, dirs, files in os.walk(inputdir):
             else:
                 line = re.sub('\.0,', ',', line)
                 line = re.sub('\.0\\n', '\\n', line)
-                line = re.sub('"\."', '0', line)
+                line = re.sub('"\."', '', line)
                 # print(line)
                 lines.append(line)
         f.close()
 
         f = open(fname,"w")
         for line in lines:
-            print(line);
+            print(line)
             f.write(line)
         f.close()
